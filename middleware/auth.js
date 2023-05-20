@@ -9,7 +9,6 @@ module.exports = function (req, res, next) {
       .status(401)
       .json({ message: "No token , Authentication failed" });
   }
-
   try {
     const decoded = jwt.verify(token, config.get("secret"));
     req.user = decoded.user;
