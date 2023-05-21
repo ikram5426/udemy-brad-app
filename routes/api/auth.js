@@ -26,23 +26,19 @@ router.post(
   async (req, res) => {
     const error = validationResult(req);
     if (!error.isEmpty()) {
-     return  res.status(400).json({ error: error.array() });
+      return res.status(400).json({ error: error.array() });
     }
 
     const { email, password } = req.body;
     try {
       let user = await User.findOne({ email });
-
       if (!user) {
         return res.status(400).json({ error: [{ msg: "Invalid credential" }] });
       }
-
       const passwordMatch = await bcrypt.compare(password, user.password);
-
       if (!passwordMatch) {
         return res.status(400).json({ error: [{ msg: "Invalid credential" }] });
       }
-
       const payload = {
         user: {
           id: user.id,
