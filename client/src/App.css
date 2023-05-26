@@ -40,7 +40,7 @@ img {
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
-  margin-top: 6rem;
+  margin-top: 5rem;
   margin-bottom: 3rem;
 }
 
@@ -150,7 +150,11 @@ img {
 
 .alert {
   padding: 0.8rem;
-  margin: 1rem 0;
+  position:sticky;
+top:5rem;
+width:50vw;
+  margin: 0.5rem 25vw;
+  margin-bottom:4rem;
   opacity: 0.9;
   background: var(--light-color);
   color: #333;
