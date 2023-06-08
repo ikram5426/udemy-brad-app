@@ -1,53 +1,27 @@
 import React, { useState } from "react";
-import {connect} from 'react-redux'
-// import axios from "axios";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import PropTypes from 'prop-types'
-import { setAlert } from "../../actions/types";
+import PropTypes from "prop-types";
+import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
 
-const Register = (props) => {
+const Register = ({setAlert,register}) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: "",
-    password2: "",
+    password: "",    
+   password2: "",
   });
-
   const { name, email, password, password2 } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
-    e.preventDefault();
     if (password !== password2) {
-      props.setAlert('Password do not match','danger')
+      setAlert("Password do not match", "danger");
     } else {
-    //   const newUser = {
-    //     name,
-    //     email,
-    //     password,
-    //   };
-
-    //   try {
-    //     const config = {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     };
-
-    //     const body = JSON.stringify(newUser);
-    //     console.log(body);
-    //     const res = await axios.post(
-    //       "http://localhost:5000/api/users",
-    //       body,
-    //       config
-    //     );
-    //     console.log(res.data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    console.log('Success')
+      register({name,email,password})
     }
     setFormData({ name: "", email: "", password: "", password2: "" });
   };
@@ -75,6 +49,7 @@ const Register = (props) => {
               placeholder='Email Address'
               value={email}
               onChange={(e) => onChange(e)}
+              required
               name='email'
             />
             <small className='form-text'>
@@ -112,9 +87,9 @@ const Register = (props) => {
   );
 };
 
-
 Register.propTypes = {
-  setAlert:PropTypes.func.isRequired
-}
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+};
 
-export default connect(null,{setAlert})(Register);
+export default connect(null, { setAlert, register })(Register);
